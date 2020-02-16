@@ -4,13 +4,17 @@ MAINTAINER dev@kinnarastudio.com
 
 ENV JAVA_VERSION openjdk-8-jdk
 
-RUN apt-get update && apt install $JAVA_VERSION -y
+RUN apt-get update && apt install $JAVA_VERSION git curl -y
 
-WORKDIR /app
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+WORKDIR /root
 
 # nvm environment variables
-ENV NVM_DIR /app/nvm
+ENV NVM_DIR /root/nvm
 ENV NODE_VERSION 12.13.1
+
+RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
 
 # install node and npm
 RUN source $NVM_DIR/nvm.sh \
