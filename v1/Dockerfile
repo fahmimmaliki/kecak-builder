@@ -27,3 +27,14 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 RUN node -v && npm -v
 
 RUN npm install -g bower 
+
+RUN cd /opt/ && wget http://www-eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz \
+             && tar -xvzf apache-maven-3.3.9-bin.tar.gz \
+             && mv apache-maven-3.3.9 maven
+RUN export M2_HOME=/opt/maven && export PATH=${M2_HOME}/bin:${PATH}
+RUN mvn --version
+
+
+
+
+ 
