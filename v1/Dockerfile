@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-MAINTAINER dev@kinnarastudio.com 
+MAINTAINER devops@kinnarastudio.com 
 
 ENV JAVA_VERSION openjdk-8-jdk
 
@@ -28,15 +28,17 @@ RUN node -v && npm -v
 
 RUN npm install -g bower 
 
-RUN cd /opt/ && wget http://www-eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz \
-             && tar -xvzf apache-maven-3.3.9-bin.tar.gz \
-             && mv apache-maven-3.3.9 maven
-RUN echo "export M2_HOME=/opt/maven" > /etc/profile.d/maven.sh  \ 
-    && echo "export PATH=${M2_HOME}/bin:${PATH}" >> /etc/profile.d/maven.sh \
-    && chmod +x /etc/profile.d/maven.sh \
-    && source chmod +x /etc/profile.d/maven.sh 
+RUN wget --no-verbose -O /tmp/apache-maven-3.3.9-bin.tar.gz http://www-eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz && \
+    tar xzf /tmp/apache-maven-3.3.9-bin.tar.gz -C /opt/ && \
+    ln -s /opt/apache-maven-3.3.9 /opt/maven && \
+    ln -s /opt/maven/bin/mvn /usr/local/bin  && \
+    rm -f /tmp/apache-maven-3.3.9-bin.tar.gz
 
-RUN mvn --version
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+
+ENV MAVEN_HOME /opt/maven
+
 
 
 
