@@ -1,6 +1,7 @@
 FROM ubuntu:16.04
 
 MAINTAINER dev@kinnarastudio.com 
+
 ENV JAVA_VERSION openjdk-8-jdk
 
 RUN apt-get update && apt install $JAVA_VERSION -y
