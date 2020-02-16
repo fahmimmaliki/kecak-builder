@@ -3,7 +3,7 @@ FROM ubuntu:16.04
 MAINTAINER dev@kinnarastudio.com 
 ENV JAVA_VERSION openjdk-8-jdk
 
-RUN apt-get update ** apt install $JAVA_VERSION
+RUN apt-get update && apt install $JAVA_VERSION -y
 
 # nvm environment variables
 ENV NVM_DIR /usr/local/nvm
@@ -21,3 +21,4 @@ RUN if ! [ -e apache-maven-3.3.3-bin.tar.gz ]; then (curl -OL http://mirror.olne
 RUN tar -zxf apache-maven-3.3.3-bin.tar.gz -C /usr/local/
 RUN ln -s /usr/local/apache-maven-3.3.3/bin/mvn /usr/bin/mvn
 RUN node -v && npm -v && java --version && mvn -v
+RUN apt-get --purge autoremove -y && rm -rf /var/lib/apt/list/*
