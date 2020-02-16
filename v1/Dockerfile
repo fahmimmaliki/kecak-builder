@@ -6,8 +6,10 @@ ENV JAVA_VERSION openjdk-8-jdk
 
 RUN apt-get update && apt install $JAVA_VERSION -y
 
+WORKDIR /app
+
 # nvm environment variables
-ENV NVM_DIR /usr/local/nvm
+ENV NVM_DIR /app/nvm
 ENV NODE_VERSION 12.13.1
 
 # install node and npm
