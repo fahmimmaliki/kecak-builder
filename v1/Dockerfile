@@ -4,7 +4,7 @@ MAINTAINER dev@kinnarastudio.com
 
 ENV JAVA_VERSION openjdk-8-jdk
 
-RUN apt-get update && apt install $JAVA_VERSION git curl -y
+RUN apt-get update && apt install $JAVA_VERSION git curl wget -y
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
