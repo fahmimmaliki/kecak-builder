@@ -31,8 +31,8 @@ RUN echo '{ "allow_root": true }' > /root/.bowerrc
 
 RUN wget --no-verbose -O /tmp/apache-maven-3.3.9-bin.tar.gz http://www-eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz && \
     tar xzf /tmp/apache-maven-3.3.9-bin.tar.gz -C $HOME_USER && \
-    ln -s $HOME_USER/apache-maven-3.3.9 $HOME_USER/maven && \
-    sudo ln -s $HOME_USER/maven/bin/mvn /usr/local/bin  && \
+    ln -s /opt/apache-maven-3.3.9 /opt/maven && \
+    ln -s /opt/maven/bin/mvn /usr/local/bin  && \
     rm -f /tmp/apache-maven-3.3.9-bin.tar.gz
 
 RUN apt-get clean && \
