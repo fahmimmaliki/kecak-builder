@@ -8,12 +8,7 @@ RUN apt-get update && apt install $JAVA_VERSION git curl wget -y
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-RUN useradd -m -s /bin/bash -d /home/ubuntu -b /home/ubuntu ubuntu
-USER ubuntu
-
-ENV HOME_USER /home/ubuntu
-
-ENV NVM_DIR $HOME_USER
+ENV NVM_DIR /opt/
 ENV NODE_VERSION 12.13.1
 
 RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
@@ -32,12 +27,12 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 RUN node -v && npm -v
 
 RUN npm install -g bower 
+RUN echo '{ "allow_root": true }' > /root/.bowerrc
 
 RUN wget --no-verbose -O /tmp/apache-maven-3.3.9-bin.tar.gz http://www-eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz && \
     tar xzf /tmp/apache-maven-3.3.9-bin.tar.gz -C $HOME_USER && \
     ln -s $HOME_USER/apache-maven-3.3.9 $HOME_USER/maven && \
     sudo ln -s $HOME_USER/maven/bin/mvn /usr/local/bin  && \
-    sudo chmod +x /usr/local/bin/mvn && \
     rm -f /tmp/apache-maven-3.3.9-bin.tar.gz
 
 RUN apt-get clean && \
