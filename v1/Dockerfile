@@ -8,7 +8,9 @@ RUN apt-get update && apt install $JAVA_VERSION git curl wget -y
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
+RUN useradd -m -s /bin/bash -d /home/ubuntu -b /home/ubuntu ubuntu
 USER ubuntu
+
 
 ENV NVM_DIR /usr/local/nvm
 ENV NODE_VERSION 12.13.1
