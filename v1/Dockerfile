@@ -8,8 +8,11 @@ RUN apt-get update && apt install $JAVA_VERSION git curl wget -y
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-ENV NVM_DIR /opt/
+
+# nvm environment variables
+ENV NVM_DIR /usr/local/nvm
 ENV NODE_VERSION 12.13.1
+
 
 RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
 
