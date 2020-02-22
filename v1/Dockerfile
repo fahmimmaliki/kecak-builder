@@ -8,11 +8,9 @@ RUN apt-get update && apt install $JAVA_VERSION git curl wget -y
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-
 # nvm environment variables
 ENV NVM_DIR /usr/local/nvm
 ENV NODE_VERSION 12.13.1
-
 
 RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
 
@@ -34,19 +32,13 @@ RUN wget https://dl.min.io/client/mc/release/linux-amd64/mc && chmod +x mc && mv
 RUN npm install -g bower 
 RUN echo '{ "allow_root": true }' > /root/.bowerrc
 
-RUN wget --no-verbose -O /tmp/apache-maven-3.3.9-bin.tar.gz http://www-eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz && \
-    tar xzf /tmp/apache-maven-3.3.9-bin.tar.gz -C $HOME_USER && \
-    ln -s /opt/apache-maven-3.3.9 /opt/maven && \
-    ln -s /opt/maven/bin/mvn /usr/local/bin  && \
-    rm -f /tmp/apache-maven-3.3.9-bin.tar.gz
+RUN wget --no-verbose -O /tmp/apache-maven-3.3.9-bin.tar.gz http://www-eu.apache.org/dist/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz \
+    && tar xzf /tmp/apache-maven-3.3.9-bin.tar.gz -C /opt/ \
+    && ln -s /opt/apache-maven-3.3.9 /opt/maven  \
+    && ln -s /opt/maven/bin/mvn /usr/local/bin   \
+    && rm -f /tmp/apache-maven-3.3.9-bin.tar.gz 
 
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
 ENV MAVEN_HOME /opt/maven
-
-
-
-
-
- 
