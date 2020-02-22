@@ -26,6 +26,8 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 # confirm installation
 RUN node -v && npm -v
 
+RUN wget https://dl.min.io/client/mc/release/linux-amd64/mc && chmod +x mc && mv mc /usr/bin/mc && mc --help
+
 RUN npm install -g bower 
 RUN echo '{ "allow_root": true }' > /root/.bowerrc
 
