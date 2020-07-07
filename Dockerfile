@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 ENV JAVA_VERSION openjdk-8-jdk
 
-RUN apt-get update && apt install $JAVA_VERSION git curl wget -y
+RUN apt-get update && apt install $JAVA_VERSION git curl wget jq -y
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
@@ -40,3 +40,12 @@ RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
 ENV MAVEN_HOME /opt/maven
+
+# get .m2 repository
+
+RUN mkdir -p /root/.m2/ && \
+    cd /root/.m2/ && \
+    git clone https://github.com/kinnara-digital-studio/repository.git
+
+COPY lib/build-core.sh /root
+# CMD ["/root/build-core.sh", "run"]
